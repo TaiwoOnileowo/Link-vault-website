@@ -4,7 +4,7 @@ import { Spotlight } from "./ui/Spotlight";
 import { FaLocationArrow } from "react-icons/fa";
 import { FlipWords } from "./ui/FlipWords";
 import Models from "./Test";
-import { BackgroundBeams } from "./ui/BackgroundBeams";
+// import { BackgroundBeams } from "./ui/BackgroundBeams";
 import { ReactTyped } from "react-typed";
 
 const Hero = () => {

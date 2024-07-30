@@ -86,6 +86,7 @@ const config = {
       backgroundImage: {
         "text-gradient-2": "linear-gradient(135deg, #1f3bca, #51d8df)",
         "text-gradient-1": "linear-gradient(135deg, #2a4ff6, #5ce1e6)",
+        "welcome-bg": "url('/welcome-bg.jpg')",
       },
       borderRadius: {
         lg: "var(--radius)",

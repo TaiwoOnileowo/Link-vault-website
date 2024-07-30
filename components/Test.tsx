@@ -47,6 +47,7 @@ const Models = () => {
             enableZoom={false}
             autoRotate={true}
             autoRotateSpeed={5}
+            enableRotate={true}
           />
           <Environment preset="city" />
         </Canvas>
