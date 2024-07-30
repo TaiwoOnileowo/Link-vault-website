@@ -2,32 +2,65 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+.scroll-reveal-heading {
+  background-size: 0 100%;
+  background-repeat: no-repeat;
+  transition: 2s;
+  background-clip: text;
+  animation: scroll-reveal-heading linear forwards;
+  animation-timeline: view(y);
+  animation-range-start: contain 20vh;
+  animation-range-end: cover 50vh;
+}
+
+@keyframes scroll-reveal-heading {
+  to {
+    background-size: 100% 100%;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.background-transition {
+  background-image: linear-gradient(90deg, #394474 0%, #040734 100%);
+  background-size: 0 100%;
+  background-repeat: no-repeat;
+  transition: 1s;
+  animation: background-transition linear forwards;
+  animation-timeline: view();
+  animation-range-start: contain -80px;
+  animation-range-end: contain 10vh;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+@keyframes background-transition {
+  to {
+    background-size: 100% 100%;
   }
+}
+.text-fade-in {
+  animation: fadeIn 0.8s ease forwards;
+  animation-timeline: view();
+  animation-range-start: contain 60px;
+  animation-range-end: contain 20vh;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #2a4ff6, #5ce1e6);
+  color: transparent;
+  background-clip: text;
+}
+.about-text-container{
+  border-radius: 30px;
 }
