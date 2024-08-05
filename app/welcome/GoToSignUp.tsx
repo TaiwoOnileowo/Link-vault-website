@@ -1,15 +1,8 @@
 import React from "react";
 import Lottie from "react-lottie";
-import animationData from "../../data/confetti.json";
+import { defaultOptions } from "@/lib/constants";
 import Link from "next/link";
 const GoToSignUp = () => {
-  const defaultOptions = {
-    loop: false,
-    animationData: animationData,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
   return (
     <div className="text-gray-800 h-full w-full flex items-center justify-center flex-col">
       <div className="absolute -bottom-0 right-0">

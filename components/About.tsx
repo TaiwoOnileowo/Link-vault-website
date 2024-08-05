@@ -2,7 +2,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { RiLinksFill } from "react-icons/ri";
 import Heading from "./Heading";
-import { BackgroundBeams } from "./ui/BackgroundBeams";
 const About = () => {
   const [visible, setIsVisible] = useState(false);
   const contentRef = useRef();
@@ -44,7 +43,7 @@ const About = () => {
           That&apos;s where Link Vault comes in
         </p>
       </div>
-      <BackgroundBeams />
+      
     </div>
   );
 };

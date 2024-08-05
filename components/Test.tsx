@@ -14,9 +14,9 @@ import Vault from "./Vault";
 
 const Models = () => {
   return (
-    <div className=" md:w-full relative">
-      <div className="w-[500px] mt-2  h-[500px] object-contain inset-0 m-auto ">
-        <Canvas shadows camera={{ position: [4, 2.5, 8], fov: 35 }}>
+    <div className=" md:w-full relative mt-8">
+      <div className="w-[500px] absolute top-0 h-[500px] object-contain inset-0 m-auto ">
+        <Canvas shadows camera={{ position: [4, 2.5, 8], fov: 50 }}>
           <group>
             <Center>
               <Vault rotation={[-0.3, -0.9, -0.1]} scale={1.2} />

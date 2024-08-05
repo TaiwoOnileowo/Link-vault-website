@@ -42,7 +42,7 @@ const config = {
           "100": "#E4ECFF",
           "200": "#2A4FF6",
         },
-        purple: "#CBACF9",
+        purple: "#B39CF2",
         "light-text": "#E0E0E0",
         "muted-text": "#A0A0A0",
         "dark-bg": "#1C1A27",
