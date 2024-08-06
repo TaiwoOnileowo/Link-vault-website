@@ -15,6 +15,7 @@ const Subscribe = () => {
       body: JSON.stringify({
         email,
         amount:1600,
+        callback_url: "/verify",
         plan: 'PLN_xlqts3wsmhzzcvt', 
       }),
     });

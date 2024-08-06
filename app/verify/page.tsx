@@ -1,13 +1,12 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
 const VerifyPayment = () => {
   const searchParams = useSearchParams();
+  const reference = searchParams!.get("reference");
+  const [text, setText] = useState("");
 
-  const reference = searchParams!.get("reference ");
-
-  const [text, setText] = useState(null);
   useEffect(() => {
     if (reference) {
       const verifyPayment = async () => {
@@ -35,4 +34,10 @@ const VerifyPayment = () => {
   );
 };
 
-export default VerifyPayment;
+const SuspendedVerifyPayment = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <VerifyPayment />
+  </Suspense>
+);
+
+export default SuspendedVerifyPayment;
