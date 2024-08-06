@@ -39,6 +39,7 @@ export default async function handler(
   }
 
   const cookies = cookie.parse(req.headers.cookie || "");
+  console.log("cookiesdreddfd", cookies);
   const session = JSON.parse(cookies.session) || "";
   console.log(session);
   if (isAllowedOrigin) {
