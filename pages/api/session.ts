@@ -39,7 +39,7 @@ export default async function handler(
   }
 
   const cookies = cookie.parse(req.headers.cookie || "");
-  const session = cookies.session || "";
+  const session = JSON.parse(cookies.session) || "";
   console.log(session);
   if (isAllowedOrigin) {
     res.setHeader("Access-Control-Allow-Origin", origin);
