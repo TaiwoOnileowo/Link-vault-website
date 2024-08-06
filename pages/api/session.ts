@@ -32,11 +32,11 @@ export default async function handler(
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const extensionId = req.headers["x-extension-id"];
+  // const extensionId = req.headers["x-extension-id"];
 
-  if (extensionId !== "bbgippochabbclmbgkkbbofljdfnbdop") {
-    return res.status(403).json({ error: "Forbidden" });
-  }
+  // if (extensionId !== "bbgippochabbclmbgkkbbofljdfnbdop") {
+  //   return res.status(403).json({ error: "Forbidden" });
+  // }
 
   const cookies = cookie.parse(req.headers.cookie || "");
   console.log("cookiesdreddfd", cookies);

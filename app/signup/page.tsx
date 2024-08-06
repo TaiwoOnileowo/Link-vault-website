@@ -1,3 +1,4 @@
+"use client"
 import Cookies from "js-cookie";
 import { useEffect } from "react";
 import { useSession } from "next-auth/react";
