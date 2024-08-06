@@ -2,7 +2,6 @@
 import Cors from "cors";
 import { NextApiRequest, NextApiResponse } from "next";
 
-// Initialize the cors middleware with the desired options
 const cors = Cors({
   origin: [
     "http://localhost:5173",
@@ -14,8 +13,7 @@ const cors = Cors({
   credentials: true,
 });
 
-// Helper method to wait for a middleware to execute before continuing
-function runMiddleware(req: NextApiRequest, res: NextApiResponse, fn) {
+function runMiddleware(req, res, fn) {
   return new Promise((resolve, reject) => {
     fn(req, res, (result) => {
       if (result instanceof Error) {
@@ -27,7 +25,21 @@ function runMiddleware(req: NextApiRequest, res: NextApiResponse, fn) {
 }
 
 export default function corsMiddleware(handler) {
-  return async (req: NextApiRequest, res: NextApiResponse) => {
+  return async (req, res) => {
+    if (req.method === "OPTIONS") {
+      res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
+      res.setHeader(
+        "Access-Control-Allow-Methods",
+        "GET, POST, PUT, DELETE, OPTIONS"
+      );
+      res.setHeader(
+        "Access-Control-Allow-Headers",
+        "Content-Type, Authorization, X-Extension-ID"
+      );
+      res.setHeader("Access-Control-Allow-Credentials", "true");
+      res.status(204).end();
+      return;
+    }
     await runMiddleware(req, res, cors);
     return handler(req, res);
   };
