@@ -48,5 +48,5 @@ export default async function handler(
     res.setHeader("Access-Control-Allow-Credentials", "true");
   }
 
-  res.status(201).json(data);
+  res.status(201).json("session");
 }
