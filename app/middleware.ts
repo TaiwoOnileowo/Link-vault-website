@@ -4,12 +4,13 @@ import { NextRequest, NextResponse } from "next/server";
 export const allowedOrigins = [
   "http://localhost:5173",
   "chrome-extension://jchegagelggnljjchmgnogddehfcoecp",
-  "https://linkvaultapp.vercel.app/"
-]; // Add more origins as needed
+  "https://linkvaultapp.vercel.app"
+]; // Remove the trailing slash from your domain
 
 const corsOptions = {
   "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, Authorization",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Extension-ID",
+  "Access-Control-Allow-Credentials": "true"
 };
 
 export function middleware(request: NextRequest) {
