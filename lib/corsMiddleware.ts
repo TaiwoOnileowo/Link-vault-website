@@ -7,6 +7,7 @@ const cors = Cors({
     "http://localhost:5173",
     "chrome-extension://jchegagelggnljjchmgnogddehfcoecp",
     "https://linkvaultapp.netlify.app",
+    "https://linkvaultapp.vercel.app/"
   ],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "X-Extension-ID"],
