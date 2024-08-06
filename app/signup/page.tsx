@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import Success from "@/components/Success";
 import Left from "@/components/AuthPageLeft";
 import Right from "@/components/AuthPageRight";
+import cookie from "cookie";
 const SignUp = () => {
   const { data: session, status } = useSession();
 
@@ -15,12 +16,13 @@ const SignUp = () => {
       console.log("session", session);
       Cookies.set("session", JSON.stringify(session), {
         expires: 1,
-        secure: true,
+        // secure: true,
         sameSite: "Lax",
       });
     }
   }, [session]);
 
+  
   if (status === "loading") return null;
   return (
     <div className="flex bg-black-100">
