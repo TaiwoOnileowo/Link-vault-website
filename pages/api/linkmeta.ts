@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { NextApiRequest, NextApiResponse } from "next";
 import { allowedOrigins } from "@/app/middleware";
 import ogs from "open-graph-scraper";

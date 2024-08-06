@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from "react";
 import { Canvas } from "@react-three/fiber";
 import { Stage, OrbitControls, useGLTF, useAnimations } from "@react-three/drei";

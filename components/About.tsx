@@ -1,33 +1,12 @@
-"use client";
-import React, { useEffect, useRef, useState } from "react";
-import { RiLinksFill } from "react-icons/ri";
+// "use client";
+import React from "react";
+// import { RiLinksFill } from "react-icons/ri";
 import Heading from "./Heading";
 const About = () => {
-  const [visible, setIsVisible] = useState(false);
-  const contentRef = useRef();
-  const handleScroll = () => {
-    if (contentRef.current) {
-      const top = contentRef.current.getBoundingClientRect().top;
-      const windowHeight = window.innerHeight;
-      if (top < windowHeight) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
   return (
-    <div className="flex flex-col items-center h-screen w-full justify-center gap-8 py-16 pt-48 px-4 text-light-text" > 
+    <div className="flex flex-col items-center h-screen w-full justify-center gap-8 py-16 pt-48 px-4 text-light-text">
       <Heading text="Introducing Link Vault" />
       <div
-      
         className={` background-transition max-w-[600px] md:max-w-[700px]  text-muted-text text-opacity-50 text-center space-y-4  p-8 about-text-container shadow-lg`}
       >
         <p className="text-sm xs:text-base ss:text-lg md:text-xl text-white text-fade-in opacity-0">
@@ -43,7 +22,6 @@ const About = () => {
           That&apos;s where Link Vault comes in
         </p>
       </div>
-      
     </div>
   );
 };

@@ -1,7 +1,8 @@
 import React from "react";
 import BackgroundGradient from "./ui/BackgroundGradient";
-import Lottie from "react-lottie";
+import dynamic from "next/dynamic";
 import { defaultOptions } from "@/lib/constants";
+const Lottie = dynamic(() => import("react-lottie"), { ssr: false });
 const Success = () => {
   return (
     <div className="w-[55%] h-screen flex items-center justify-center">

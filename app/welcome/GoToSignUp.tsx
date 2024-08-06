@@ -1,6 +1,7 @@
 import React from "react";
-import Lottie from "react-lottie";
+import dynamic from "next/dynamic";
 import { defaultOptions } from "@/lib/constants";
+const Lottie = dynamic(() => import("react-lottie"), { ssr: false });
 import Link from "next/link";
 const GoToSignUp = () => {
   return (
