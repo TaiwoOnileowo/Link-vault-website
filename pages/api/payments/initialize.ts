@@ -6,7 +6,7 @@ export default async function handler(
 ) {
   if (req.method === "POST") {
     const { email, amount, plan } = req.body;
-
+    console.log(email, amount, plan);
     const params = JSON.stringify({
       email,
       amount,

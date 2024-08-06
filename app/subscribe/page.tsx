@@ -1,13 +1,13 @@
 "use client"
 import { useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 const Subscribe = () => {
   const [email, setEmail] = useState('');
   const router = useRouter();
 
   const handleSubscribe = async () => {
-    const response = await fetch('/api/initialize-payment', {
+    const response = await fetch('/api/payments/initialize', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -15,11 +15,12 @@ const Subscribe = () => {
       body: JSON.stringify({
         email,
         amount:1600,
-        plan: 'PLN_xxxxxxxxxx', // replace with your plan code
+        plan: 'PLN_xlqts3wsmhzzcvt', 
       }),
     });
 
     const data = await response.json();
+    console.log(data);
     if (response.ok) {
       router.push(data.authorization_url);
     } else {
