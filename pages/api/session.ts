@@ -42,6 +42,17 @@ export default async function handler(
   console.log("cookiesdreddfd", cookies);
   const session = JSON.parse(cookies.session) || "";
   console.log(session);
+
+  res.setHeader(
+    "Set-Cookie",
+    cookie.serialize("session", session, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 60 * 60 * 24, // 1 day
+      sameSite: "strict",
+      path: "/",
+    })
+  );
   if (isAllowedOrigin) {
     res.setHeader("Access-Control-Allow-Origin", origin);
     res.setHeader("Access-Control-Allow-Credentials", "true");

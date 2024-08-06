@@ -1,28 +1,24 @@
-// @ts-nocheck
-"use client";
 import Cookies from "js-cookie";
 import { useEffect } from "react";
 import { useSession } from "next-auth/react";
 import Success from "@/components/Success";
 import Left from "@/components/AuthPageLeft";
 import Right from "@/components/AuthPageRight";
-import cookie from "cookie";
+
 const SignUp = () => {
   const { data: session, status } = useSession();
 
   useEffect(() => {
-    console.log("sessiondffff", session);
     if (session) {
-      console.log("session", session);
       Cookies.set("session", JSON.stringify(session), {
-        expires: 1,
-        // secure: true,
-        sameSite: "Lax",
+        expires: 1, // 1 day
+        secure: process.env.NODE_ENV === "production", // Ensure secure in production
+        sameSite: "strict",
+        path: "/",
       });
     }
   }, [session]);
 
-  
   if (status === "loading") return null;
   return (
     <div className="flex bg-black-100">
