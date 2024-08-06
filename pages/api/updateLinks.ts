@@ -37,19 +37,16 @@ export default async function handler(
     res.setHeader("Access-Control-Allow-Origin", origin);
     res.setHeader("Access-Control-Allow-Credentials", "true");
   }
-  const extensionId = req.headers["x-extension-id"];
+  // const extensionId = req.headers["x-extension-id"];
 
-  if (extensionId !== "bbgippochabbclmbgkkbbofljdfnbdop") {
-    return res.status(403).json({ error: "Forbidden" });
-  }
+  // if (extensionId !== "bbgippochabbclmbgkkbbofljdfnbdop") {
+  //   return res.status(403).json({ error: "Forbidden" });
+  // }
   const { id, links } = req.body;
   if (!id || !Array.isArray(links)) {
     return res.status(400).json({ error: "Invalid request body" });
   }
-  //   const session = await auth(req, res);
-  //   if (!session) {
-  //     return res.status(401).json({ error: "Unauthorized" });
-  //   }
+
   try {
     console.log("setting to db");
     const client = await clientPromise;

@@ -34,10 +34,10 @@ export default async function handler(
     res.setHeader("Access-Control-Allow-Credentials", "true");
   }
 
-  const extensionId = req.headers["x-extension-id"];
-  if (extensionId !== "bbgippochabbclmbgkkbbofljdfnbdop") {
-    return res.status(403).json({ error: "Forbidden" });
-  }
+  // const extensionId = req.headers["x-extension-id"];
+  // if (extensionId !== "bbgippochabbclmbgkkbbofljdfnbdop") {
+  //   return res.status(403).json({ error: "Forbidden" });
+  // }
 
   const { id } = req.query;
   if (!id || Array.isArray(id)) {

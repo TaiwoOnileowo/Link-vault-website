@@ -33,9 +33,9 @@ export default async function handler(
   console.log(allowedOrigins);
   const extensionId = req.headers["x-extension-id"];
 
-  if (extensionId !== "bbgippochabbclmbgkkbbofljdfnbdop") {
-    return res.status(403).json({ error: "Forbidden" });
-  }
+  // if (extensionId !== "bbgippochabbclmbgkkbbofljdfnbdop") {
+  //   return res.status(403).json({ error: "Forbidden" });
+  // }
 
   if (isAllowedOrigin) {
     console.log("setting headers");

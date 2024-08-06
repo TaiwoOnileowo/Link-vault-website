@@ -37,20 +37,16 @@ export default async function handler(
     res.setHeader("Access-Control-Allow-Origin", origin);
     res.setHeader("Access-Control-Allow-Credentials", "true");
   }
-  const extensionId = req.headers["x-extension-id"];
+  // const extensionId = req.headers["x-extension-id"];
 
-  if (extensionId !== "bbgippochabbclmbgkkbbofljdfnbdop") {
-    return res.status(403).json({ error: "Forbidden" });
-  }
+  // if (extensionId !== "bbgippochabbclmbgkkbbofljdfnbdop") {
+  //   return res.status(403).json({ error: "Forbidden" });
+  // }
   const { id } = req.query;
   if (!id || Array.isArray(id)) {
     return res.status(400).json({ error: "Invalid request query" });
   }
 
-  //   const session = await auth(req, res);
-  //   if (!session) {
-  //     return res.status(401).json({ error: "Unauthorized" });
-  //   }
 
   try {
     const client = await clientPromise;

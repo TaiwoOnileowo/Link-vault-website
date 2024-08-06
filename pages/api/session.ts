@@ -5,9 +5,9 @@ import { auth } from "@/auth";
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const extensionId = req.headers["x-extension-id"];
 
-  if (extensionId !== "bbgippochabbclmbgkkbbofljdfnbdop") {
-    return res.status(403).json({ error: "Forbidden" });
-  }
+  // if (extensionId !== "bbgippochabbclmbgkkbbofljdfnbdop") {
+  //   return res.status(403).json({ error: "Forbidden" });
+  // }
 
   if (req.method !== "GET") {
     return res.status(405).json({ error: "Method not allowed" });
