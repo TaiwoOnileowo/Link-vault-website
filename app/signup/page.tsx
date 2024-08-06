@@ -16,6 +16,7 @@ const SignUp = () => {
         secure: process.env.NODE_ENV === "production", // Ensure secure in production
         sameSite: "lax",
         path: "/",
+        domain: "https://linkvaultapp.vercel.app",
       });
     }
   }, [session]);
