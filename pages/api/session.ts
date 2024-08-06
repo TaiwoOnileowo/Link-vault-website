@@ -1,7 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { allowedOrigins } from "@/app/middleware";
 import { auth } from "@/auth";
-
+import Cookies from "js-cookie";
+import cookie from "cookie";
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -38,7 +39,9 @@ export default async function handler(
     return res.status(403).json({ error: "Forbidden" });
   }
   console.log("extensionId", extensionId);
-  const session = await auth(req, res);
+  // const session = await auth(req, res);
+  const cookies = cookie.parse(req.headers.cookie || "");
+  const session = JSON.parse(cookies.session);
   console.log("session", session);
   const data = session;
 
