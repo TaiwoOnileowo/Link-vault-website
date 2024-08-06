@@ -14,7 +14,7 @@ const SignUp = () => {
       Cookies.set("session", JSON.stringify(session), {
         expires: 1, // 1 day
         secure: process.env.NODE_ENV === "production", // Ensure secure in production
-        // sameSite: "lax",
+        sameSite: false,
         path: "/",
         domain: "https://linkvaultapp.vercel.app",
       });
