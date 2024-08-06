@@ -1,4 +1,3 @@
-
 import { NextApiRequest, NextApiResponse } from "next";
 import { allowedOrigins } from "@/app/middleware";
 import { auth } from "@/auth";
@@ -48,5 +47,5 @@ export default async function handler(
     res.setHeader("Access-Control-Allow-Credentials", "true");
   }
 
-  res.status(201).json("session");
+  res.status(201).json(data);
 }
