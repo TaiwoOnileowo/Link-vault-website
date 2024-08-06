@@ -37,6 +37,7 @@ export default async function handler(
   if (extensionId !== "bbgippochabbclmbgkkbbofljdfnbdop") {
     return res.status(403).json({ error: "Forbidden" });
   }
+  console.log("extensionId", extensionId);
   const session = await auth(req, res);
   console.log("session", session);
   const data = session;

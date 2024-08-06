@@ -9,6 +9,7 @@ const SignUp = () => {
  const { status, session } = GetSession();
  console.log(session, status);
   console.log(status);
+  
   if (status === "loading") return null;
   return (
     <div className="flex bg-black-100">
