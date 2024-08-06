@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Cookies from "js-cookie";
 import { useEffect } from "react";
 import { useSession } from "next-auth/react";
@@ -8,13 +8,13 @@ import Right from "@/components/AuthPageRight";
 
 const SignUp = () => {
   const { data: session, status } = useSession();
-
+  console.log("session", session);
   useEffect(() => {
     if (session) {
       Cookies.set("session", JSON.stringify(session), {
         expires: 1, // 1 day
         secure: process.env.NODE_ENV === "production", // Ensure secure in production
-        sameSite: "strict",
+        sameSite: "lax",
         path: "/",
       });
     }
