@@ -1,9 +1,9 @@
 // pages/api/session.js
 
 import { NextApiRequest, NextApiResponse } from "next";
-import cookie from "cookie";
-import { allowedOrigins } from "@/app/middleware";
 
+import { allowedOrigins } from "@/app/middleware";
+import { auth } from "@/auth";
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -37,22 +37,8 @@ export default async function handler(
   // if (extensionId !== "bbgippochabbclmbgkkbbofljdfnbdop") {
   //   return res.status(403).json({ error: "Forbidden" });
   // }
-
-  const cookies = cookie.parse(req.headers.cookie || "");
-  console.log("cookiesdreddfd", cookies);
-  const session = JSON.parse(cookies.session) || "";
-  console.log(session);
-
-  res.setHeader(
-    "Set-Cookie",
-    cookie.serialize("session", JSON.stringify(session), {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      maxAge: 60 * 60 * 24, // 1 day
-      sameSite: false,
-      path: "/",
-    })
-  );
+  const session = await auth(req, res);
+  console.log("session", session);
   if (isAllowedOrigin) {
     res.setHeader("Access-Control-Allow-Origin", origin);
     res.setHeader("Access-Control-Allow-Credentials", "true");
