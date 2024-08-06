@@ -10,7 +10,9 @@ const SignUp = () => {
   const { data: session, status } = useSession();
 
   useEffect(() => {
+    console.log("sessiondffff", session);
     if (session) {
+      console.log("session", session);
       Cookies.set("session", JSON.stringify(session), {
         expires: 1,
         secure: true,
