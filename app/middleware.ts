@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 export const allowedOrigins = [
   "http://localhost:5173",
   "chrome-extension://jchegagelggnljjchmgnogddehfcoecp",
+  "https://linkvaultapp.netlify.app/"
 ]; // Add more origins as needed
 
 const corsOptions = {
