@@ -19,12 +19,7 @@ export default async function handler(
     return res.status(403).json({ error: "Forbidden" });
   }
 
-    const extensionId = req.headers["x-extension-id"];
-
-    if (extensionId !== "bbgippochabbclmbgkkbbofljdfnbdop") {
-      return res.status(403).json({ error: "Forbidden" });
-    }
-
+  
   if (req.method === "GET") {
     const { url } = req.query;
 
