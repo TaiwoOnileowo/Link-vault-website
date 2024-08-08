@@ -1,48 +1,25 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import clientPromise from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
-import { allowedOrigins } from "@/app/middleware";
+import { runMiddleware, cors } from "@/app/middleware";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const origin = req.headers.origin || "";
-  const isAllowedOrigin = allowedOrigins.includes(origin);
-
-  // Handle the OPTIONS preflight request
-  if (req.method === "OPTIONS") {
-    if (isAllowedOrigin) {
-      res.setHeader("Access-Control-Allow-Origin", origin);
-      res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-      res.setHeader(
-        "Access-Control-Allow-Headers",
-        "Content-Type, Authorization, X-Extension-ID"
-      );
-      res.setHeader("Access-Control-Allow-Credentials", "true");
-      res.status(204).end();
-    } else {
-      res.status(403).end();
-    }
-    return;
-  }
+  await runMiddleware(req, res, cors);
 
   // Ensure the request method is POST
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  // Set CORS headers for the actual request
-  if (isAllowedOrigin) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-    res.setHeader("Access-Control-Allow-Credentials", "true");
-  }
-  // const extensionId = req.headers["x-extension-id"];
+  const extensionId = req.headers["x-extension-id"];
 
-  // if (extensionId !== "bbgippochabbclmbgkkbbofljdfnbdop") {
-  //   return res.status(403).json({ error: "Forbidden" });
-  // }
-  const { id, folders} = req.body;
+  if (extensionId !== "bbgippochabbclmbgkkbbofljdfnbdop") {
+    return res.status(403).json({ error: "Forbidden" });
+  }
+  const { id, folders } = req.body;
   if (!id || !Array.isArray(folders)) {
     return res.status(400).json({ error: "Invalid request body" });
   }
@@ -71,5 +48,5 @@ export default async function handler(
   } catch (error) {
     console.error("Database error:", error);
     return res.status(500).json({ error: "Internal server error" });
-  } 
+  }
 }

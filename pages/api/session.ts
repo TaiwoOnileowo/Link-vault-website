@@ -1,34 +1,7 @@
 // pages/api/session.ts
 import { NextApiRequest, NextApiResponse } from "next";
-import Cors from "cors";
+import { runMiddleware, cors } from "@/app/middleware";
 import { auth } from "@/auth";
-
-// Initializing the cors middleware
-const cors = Cors({
-  origin: [
-    "http://localhost:5173",
-    "chrome-extension://*",
-    "https://linkvaultapp.vercel.app",
-  ],
-  credentials: true, // Allow credential
-  methods: ["POST", "GET", "HEAD"],
-});
-
-// Helper method to wait for middleware to execute before continuing
-function runMiddleware(
-  req: NextApiRequest,
-  res: NextApiResponse,
-  fn: Function
-) {
-  return new Promise((resolve, reject) => {
-    fn(req, res, (result: any) => {
-      if (result instanceof Error) {
-        return reject(result);
-      }
-      return resolve(result);
-    });
-  });
-}
 
 export default async function handler(
   req: NextApiRequest,
@@ -37,6 +10,12 @@ export default async function handler(
   // Run the middleware
   await runMiddleware(req, res, cors);
 
+  const extensionId = req.headers["x-extension-id"];
+
+  if (extensionId !== "bbgippochabbclmbgkkbbofljdfnbdop") {
+    return res.status(403).json({ error: "Forbidden" });
+  }
+  
   try {
     const session = await auth(req, res);
     console.log("session", session);

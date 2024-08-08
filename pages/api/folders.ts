@@ -1,43 +1,21 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import clientPromise from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
-import { allowedOrigins } from "@/app/middleware";
+import { runMiddleware, cors } from "@/app/middleware";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const origin = req.headers.origin || "";
-  const isAllowedOrigin = allowedOrigins.includes(origin);
-
-  if (req.method === "OPTIONS") {
-    if (isAllowedOrigin) {
-      res.setHeader("Access-Control-Allow-Origin", origin);
-      res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
-      res.setHeader(
-        "Access-Control-Allow-Headers",
-        "Content-Type, Authorization, X-Extension-ID"
-      );
-      res.setHeader("Access-Control-Allow-Credentials", "true");
-      return res.status(204).end();
-    } else {
-      return res.status(403).end();
-    }
-  }
-
+  await runMiddleware(req, res, cors);
   if (req.method !== "GET") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  if (isAllowedOrigin) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-    res.setHeader("Access-Control-Allow-Credentials", "true");
+  const extensionId = req.headers["x-extension-id"];
+  if (extensionId !== "bbgippochabbclmbgkkbbofljdfnbdop") {
+    return res.status(403).json({ error: "Forbidden" });
   }
-
-  // const extensionId = req.headers["x-extension-id"];
-  // if (extensionId !== "bbgippochabbclmbgkkbbofljdfnbdop") {
-  //   return res.status(403).json({ error: "Forbidden" });
-  // }
 
   const { id } = req.query;
   if (!id || Array.isArray(id)) {

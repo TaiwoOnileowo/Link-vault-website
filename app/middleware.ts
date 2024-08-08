@@ -1,37 +1,25 @@
-// middleware.ts
-import { NextRequest, NextResponse } from "next/server";
-
-export const allowedOrigins = [
-  "http://localhost:5173",
-  "chrome-extension://jchegagelggnljjchmgnogddehfcoecp",
-  "https://linkvaultapp.vercel.app",
-]; 
-
-const corsOptions = {
-  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Extension-ID",
-  "Access-Control-Allow-Credentials": "true",
-};
-
-export function middleware(request: NextRequest) {
-  // Check the origin from the request
-  const origin = request.headers.get("origin") ?? "";
-  const isAllowedOrigin = allowedOrigins.includes(origin);
-
-  // Handle simple requests
-  const response = NextResponse.next();
-
-  if (isAllowedOrigin) {
-    response.headers.set("Access-Control-Allow-Origin", origin);
-  }
-
-  Object.entries(corsOptions).forEach(([key, value]) => {
-    response.headers.set(key, value);
+import Cors from "cors";
+import { NextApiRequest, NextApiResponse } from "next";
+export const cors = Cors({
+  origin: [
+    "http://localhost:5173",
+    "chrome-extension://*",
+    "https://linkvaultapp.vercel.app",
+  ],
+  credentials: true, // Allow credential
+  methods: ["POST", "GET", "HEAD"],
+});
+export function runMiddleware(
+  req: NextApiRequest,
+  res: NextApiResponse,
+  fn: Function
+) {
+  return new Promise((resolve, reject) => {
+    fn(req, res, (result: any) => {
+      if (result instanceof Error) {
+        return reject(result);
+      }
+      return resolve(result);
+    });
   });
-
-  return response;
 }
-
-export const config = {
-  matcher: "/api/:path*",
-};

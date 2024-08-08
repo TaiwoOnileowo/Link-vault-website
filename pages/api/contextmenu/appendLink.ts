@@ -2,42 +2,20 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import clientPromise from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
-import { allowedOrigins } from "@/app/middleware";
+import { runMiddleware, cors } from "@/app/middleware";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const origin = req.headers.origin || "";
-  const isAllowedOrigin = allowedOrigins.includes(origin);
-
-  // Handle the OPTIONS preflight request
-  if (req.method === "OPTIONS") {
-    if (isAllowedOrigin) {
-      res.setHeader("Access-Control-Allow-Origin", origin);
-      res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-      res.setHeader(
-        "Access-Control-Allow-Headers",
-        "Content-Type, Authorization, X-Extension-ID"
-      );
-      res.setHeader("Access-Control-Allow-Credentials", "true");
-      res.status(204).end();
-    } else {
-      res.status(403).end();
-    }
-    return;
-  }
+  await runMiddleware(req, res, cors);
 
   // Ensure the request method is POST
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  // Set CORS headers for the actual request
-  if (isAllowedOrigin) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-    res.setHeader("Access-Control-Allow-Credentials", "true");
-  }
+
 
   const { id, folder } = req.body;
   const folder_name = folder.folder_name;
