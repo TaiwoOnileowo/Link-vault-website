@@ -23,6 +23,7 @@ const config = {
       padding: "2rem",
       screens: {
         "2xl": "1400px",
+        "3xl": "1600px",
       },
     },
     extend: {
@@ -43,6 +44,7 @@ const config = {
           "200": "#2A4FF6",
         },
         purple: "#B39CF2",
+        purple1: "#2A007F",
         "light-text": "#E0E0E0",
         "muted-text": "#A0A0A0",
         "dark-bg": "#1C1A27",
@@ -57,6 +59,9 @@ const config = {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          1: " #5CE4E4",
+          2: "#2B4CF4",
+          3: " #40E8F0",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",

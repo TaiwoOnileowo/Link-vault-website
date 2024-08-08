@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 const Login = () => {
   const { status, data: session } = useSession();
-
+  console.log("session", session);
   const router = useRouter();
   useEffect(() => {
     if (status === "unauthenticated") {

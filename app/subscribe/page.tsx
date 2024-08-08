@@ -16,7 +16,7 @@ const Subscribe = () => {
         email,
         amount:1600,
         callback_url: "/verify",
-        plan: 'PLN_xlqts3wsmhzzcvt', 
+        plan: 'PLN_4o3z74c6xxz5gki', 
       }),
     });
 

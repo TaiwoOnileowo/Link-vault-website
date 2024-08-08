@@ -4,7 +4,7 @@ import React from "react";
 import Heading from "./Heading";
 const About = () => {
   return (
-    <div className="flex flex-col items-center h-screen w-full justify-center gap-8 py-16 pt-48 px-4 text-light-text">
+    <div className="flex flex-col items-center h-screen w-full justify-center gap-8 py-16  text-light-text">
       <Heading text="Introducing Link Vault" />
       <div
         className={` background-transition max-w-[600px] md:max-w-[700px]  text-muted-text text-opacity-50 text-center space-y-4  p-8 about-text-container shadow-lg`}

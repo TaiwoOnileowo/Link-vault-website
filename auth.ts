@@ -53,23 +53,46 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Resend,
   ],
   cookies: {
+  //   // sessionToken: {
+  //   //   name: `__Secure-authjs.session-token`,
+  //   //   options: {
+  //   //     httpOnly: true,
+  //   //     sameSite: "None", // Ensure this is None
+  //   //     secure: true,    // Ensure this is true
+  //   //   },
+  //   // },
     sessionToken: {
-      name: `__Secure-authjs.session-token`,
+      name: `authjs.session-token`,
       options: {
         httpOnly: true,
         sameSite: "None", // Ensure this is None
         secure: true,    // Ensure this is true
       },
     },
+  //   // callbackUrl: {
+  //   //   name: `__Secure-authjs.callback-url`,
+  //   //   options: {
+  //   //     sameSite: "None", // Ensure this is None
+  //   //     secure: true,    // Ensure this is true
+  //   //   },
+  //   // },
     callbackUrl: {
-      name: `__Secure-authjs.callback-url`,
+      name: `authjs.callback-url`,
       options: {
         sameSite: "None", // Ensure this is None
         secure: true,    // Ensure this is true
       },
     },
+  //   // csrfToken: {
+  //   //   name: `__Host-authjs.csrf-token`,
+  //   //   options: {
+  //   //     httpOnly: true,
+  //   //     sameSite: "None", // Ensure this is None
+  //   //     secure: true,    // Ensure this is true
+  //   //   },
+  //   // },
     csrfToken: {
-      name: `__Host-authjs.csrf-token`,
+      name: `authjs.csrf-token`,
       options: {
         httpOnly: true,
         sameSite: "None", // Ensure this is None
