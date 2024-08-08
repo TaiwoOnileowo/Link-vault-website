@@ -4,6 +4,7 @@ export const cors = Cors({
   origin: [
     "http://localhost:5173",
     "chrome-extension://*",
+    "chrome-extension://jchegagelggnljjchmgnogddehfcoecp",
     "https://linkvaultapp.vercel.app",
   ],
   credentials: true, // Allow credential
