@@ -1,7 +1,8 @@
+
 "use client";
 import React, { useState } from "react";
 import CoreFeatures from "./CoreFeatures";
-import MoreFeatures from "./MoreFeatures";
+
 import { features, more_features } from "@/data";
 import Heading from "./Heading";
 const Features = () => {
