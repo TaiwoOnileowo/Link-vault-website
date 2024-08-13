@@ -4,6 +4,7 @@ import innovation from "@/public/innovation.webp";
 import transparency from "@/public/transparency.webp";
 import reliability from "@/public/reliability.webp";
 import scalability from "./scalability.webp";
+import useGetCountry from "@/hooks/useGetCountry";
 import {
   motion,
   useMotionValueEvent,
@@ -15,7 +16,9 @@ import Image from "next/image";
 const HowItWorks = () => {
   const cardRef = useRef<HTMLDivElement | null>(null);
   const [position, setPosition] = useState(1);
-
+  const { price, location } = useGetCountry();
+  
+console.log("Price:", price,location);
   const { scrollYProgress } = useScroll({
     target: cardRef,
     offset: ["start center", "end start"],
@@ -93,8 +96,8 @@ const HowItWorks = () => {
         </motion.div>
 
         <div ref={cardRef} className="flex flex-col pt-[50px]">
-          <h3 className="text-[32px] font-bold leading-[44px] tracking-[-0.72px] text-[#0e1829] md:text-[36px]">
-            Why Choose US
+          <h3 className="text-[32px] font-bold leading-[44px] -mt-8 tracking-[-0.72px] text-white md:text-[36px]">
+            How it Works
           </h3>
 
           <div className="relative mt-6 flex w-full flex-col items-center justify-center gap-6">

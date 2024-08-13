@@ -6,7 +6,7 @@ const VerifyPayment = () => {
   const searchParams = useSearchParams();
   const reference = searchParams!.get("reference");
   const [text, setText] = useState("");
-
+  console.log(reference);
   useEffect(() => {
     if (reference) {
       const verifyPayment = async () => {
@@ -17,7 +17,6 @@ const VerifyPayment = () => {
         if (data.status === "success") {
           console.log("Payment verified:", data);
           setText("Payment verified");
-          // handle successful payment verification (e.g., update user subscription status)
         } else {
           console.error("Payment verification failed:", data);
         }
