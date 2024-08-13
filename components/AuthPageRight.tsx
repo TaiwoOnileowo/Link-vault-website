@@ -4,45 +4,23 @@ import { motion, AnimatePresence } from "framer-motion";
 import React, { useState, useEffect } from "react";
 import { AuroraBackground } from "@/components/ui/AuroraBackground";
 
-const textArray = [
-  {
-    mainText: "Link Vault helps you easily save and access your links.",
-    subText: "Keeps your browser clean",
-  },
-  {
-    mainText: "Easily create folders to organize your links.",
-    subText: "Keep your links organized",
-  },
-  {
-    mainText: "Directly add links from your browser.",
-    subText: "Just right-click and save",
-  },
-  {
-    mainText: "Easily search and find your saved links.",
-    subText: "Find that link in seconds",
-  },
-  {
-    mainText: "You can add folder icons to your folders.",
-    subText: "Give it some style",
-  },
-  // Add more text objects as needed
-];
+import { signinText } from "@/data";
 
 const AuthPageRight = () => {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setIndex((prevIndex) => (prevIndex + 1) % textArray.length);
-    }, 5000); // Change text every 5 seconds
+      setIndex((prevIndex) => (prevIndex + 1) % signinText.length);
+    }, 5000);
 
-    return () => clearInterval(interval); // Cleanup interval on unmount
+    return () => clearInterval(interval);
   }, []);
 
   return (
     <div className="w-[45%]">
       <AuroraBackground>
-        {textArray.map((_, i) => {
+        {signinText.map((_, i) => {
           if (i !== index) return null;
           return (
             <motion.div
@@ -69,10 +47,10 @@ const AuthPageRight = () => {
                   className="relative flex flex-col gap-4 items-center justify-center px-4"
                 >
                   <div className="text-2xl md:text-6xl font-bold  text-center">
-                    {textArray[i].mainText}
+                    {signinText[i].mainText}
                   </div>
                   <div className="font-extralight text-sm md:text-3xl  py-4">
-                    {textArray[i].subText}
+                    {signinText[i].subText}
                   </div>
                 </motion.div>
               </AnimatePresence>

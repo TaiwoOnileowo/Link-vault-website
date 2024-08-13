@@ -185,3 +185,27 @@ export const pricingFeatures = {
     ],
   },
 };
+
+export const signinText = [
+  {
+    mainText: "Link Vault helps you easily save and access your links.",
+    subText: "Keeps your browser clean",
+  },
+  {
+    mainText: "Easily create folders to organize your links.",
+    subText: "Keep your links organized",
+  },
+  {
+    mainText: "Directly add links from your browser.",
+    subText: "Just right-click and save",
+  },
+  {
+    mainText: "Easily search and find your saved links.",
+    subText: "Find that link in seconds",
+  },
+  {
+    mainText: "You can add folder icons to your folders.",
+    subText: "Give it some style",
+  },
+ 
+];

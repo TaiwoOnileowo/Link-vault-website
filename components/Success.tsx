@@ -11,7 +11,7 @@ const Success = () => {
         animate={false}
       >
         <div className="absolute bottom-0 right-0">
-          {/* <Lottie options={defaultOptions} height={200} width={300} /> */}
+          <Lottie options={defaultOptions} height={200} width={300} />
         </div>
         <h1 className="font-bold text-2xl text-neutral-800 text-center">
           Sign in successful!🎉

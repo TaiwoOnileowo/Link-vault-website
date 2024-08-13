@@ -1,20 +1,14 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import Right from "@/components/AuthPageRight";
 import Left from "@/components/AuthPageLeft";
 import Success from "@/components/Success";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+
 const Login = () => {
   const { status, data: session } = useSession();
   console.log("session", session);
-  const router = useRouter();
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      router.replace("/login"); // Redirect to login if unauthenticated
-    }
-  }, [status, router]);
 
   if (status === "loading") return null;
 

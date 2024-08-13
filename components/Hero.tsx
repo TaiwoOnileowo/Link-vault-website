@@ -1,6 +1,6 @@
 "use client";
 import React, { Suspense } from "react";
-import Model from "./VaultModel";
+import Model from "./Vault";
 import { ReactTyped } from "react-typed";
 import Spotlights from "./Spotlights";
 
@@ -28,7 +28,7 @@ const Hero = () => {
           </button>
         </div>
       </div>
-      <Suspense fallback={null}>
+      <Suspense fallback={<div>Loading...</div>}>
         <Model />
       </Suspense>
     </div>
