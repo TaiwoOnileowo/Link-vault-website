@@ -11,7 +11,7 @@ const VerifyPayment = () => {
   const { data: session } = useSession();
   console.log(reference);
 const { referenceId, setReferenceId } = useAppContext();
-console.log("referenceId", referenceId);
+
   useEffect(() => {
     if (reference) {
       const verifyPayment = async () => {
@@ -31,8 +31,9 @@ console.log("referenceId", referenceId);
 
       verifyPayment();
     }
-  }, [reference]);
+  }, [reference, setReferenceId]);
   console.log("session", session);
+  console.log("referenceId", referenceId);
   return (
     <div>
       <h1>{text ? text : "Verifying Payment..."}</h1>
