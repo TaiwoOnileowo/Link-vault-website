@@ -22,7 +22,7 @@ const { referenceId, setReferenceId } = useAppContext();
         if (data.status === "success") {
           console.log("Payment verified:", data);
           setText("Payment verified");
-          setReferenceId(data.reference)
+          setReferenceId(data.data.reference)
         } else {
           console.error("Payment verification failed:", data);
           throw new Error("Payment verification failed");
