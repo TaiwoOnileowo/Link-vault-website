@@ -3,27 +3,43 @@ import React, { useState } from "react";
 import { Input } from "@/components/ui/Input";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FaArrowRight } from "react-icons/fa";
-
+import useGetCountry from "@/hooks/useGetCountry";
 const EnterDetails = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
-  const [error, setError] = useState(""); // Error state
+  const [error, setError] = useState("");
 
   const router = useRouter();
   const searchParams = useSearchParams();
   const pay = searchParams!.get("pay");
   console.log(pay);
-
+  const { getPricingBasedOnLocation } = useGetCountry();
   const getPlan = () => {
     if (pay === "monthly") {
-      return "PLN_xlqts3wsmhzzcvt";
+      return {
+        price: getPricingBasedOnLocation("1.2"),
+        plan: "PLN_xlqts3wsmhzzcvt",
+      };
     } else if (pay === "biannually") {
-      return "PLN_jqch3zo8kmn9hkr";
+      return {
+        price: getPricingBasedOnLocation("5.00"),
+        plan: "PLN_jqch3zo8kmn9hkr",
+      };
     } else if (pay === "annually") {
-      return "PLN_z8ywsqmgehegx0s";
+      return {
+        price: getPricingBasedOnLocation("8.50"),
+        plan: "PLN_z8ywsqmgehegx0s",
+      };
+    } else {
+      return {
+        price: getPricingBasedOnLocation("5.00"),
+        plan: "PLN_jqch3zo8kmn9hkr",
+      };
     }
   };
   const handleSubscribe = async () => {
+    const { price, plan } = getPlan();
+    console.log(price, plan);
     setError("");
     if (!email || !name) {
       setError("Please fill in all fields.");
@@ -40,9 +56,9 @@ const EnterDetails = () => {
       },
       body: JSON.stringify({
         email,
-        amount: 1600,
-        callback_url: `https://linkvaultapp.vercel.app/verify`, // Correctly set the callback URL
-        plan: getPlan(),
+        amount: Number(price),
+        callback_url: `https://linkvaultapp.vercel.app/verify`,
+        plan: plan,
       }),
     });
 
@@ -53,7 +69,8 @@ const EnterDetails = () => {
       router.push(data.authorization_url);
     } else {
       setError("Payment initialization failed. Please try again.");
-      console.error("Payment initialization failed:", data);
+      console.log(data);
+      throw new Error("Payment initialization failed");
     }
   };
 

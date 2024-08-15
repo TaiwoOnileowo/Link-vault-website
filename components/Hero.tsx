@@ -29,7 +29,7 @@ const Hero = () => {
         </div>
       </div>
       <Suspense fallback={<div>Loading...</div>}>
-        <Model />
+        {/* <Model /> */}
       </Suspense>
     </div>
   );

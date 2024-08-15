@@ -3,6 +3,7 @@ import Features from "@/components/Features";
 import Hero from "@/components/Hero";
 import HowItWorks from "@/components/HowItWorks";
 import Pricing from "@/components/Pricing";
+import ScrollAnimation from "@/components/ScrollAnimation";
 
 export default function Home() {
   return (
@@ -10,8 +11,9 @@ export default function Home() {
       <Hero />
       <About />
       <Features />
+      {/* <ScrollAnimation/> */}
       <HowItWorks />
-      <Pricing/>
+      <Pricing />
     </main>
   );
 }

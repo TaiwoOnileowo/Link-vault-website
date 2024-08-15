@@ -1,5 +1,5 @@
 import React from "react";
-import SignUpForm from "../app/signup/SignUpForm";
+import SignUpForm from "../app/(auth)/signup/SignUpForm";
 
 const AuthPageLeft = ({ isLogin }: { isLogin?: boolean }) => {
   return (
