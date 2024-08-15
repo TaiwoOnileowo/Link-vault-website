@@ -3,13 +3,15 @@
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { useAppContext } from "@/context/AppContext";
 const VerifyPayment = () => {
   const searchParams = useSearchParams();
   const reference = searchParams!.get("reference");
   const [text, setText] = useState("");
   const { data: session } = useSession();
   console.log(reference);
-  const sessionReference = session?.user.reference;
+const { referenceId, setReferenceId } = useAppContext();
+console.log("referenceId", referenceId);
   useEffect(() => {
     if (reference) {
       const verifyPayment = async () => {
@@ -20,7 +22,7 @@ const VerifyPayment = () => {
         if (data.status === "success") {
           console.log("Payment verified:", data);
           setText("Payment verified");
-          session?.user.reference = reference;
+          setReferenceId(data.reference)
         } else {
           console.error("Payment verification failed:", data);
           throw new Error("Payment verification failed");
@@ -29,7 +31,7 @@ const VerifyPayment = () => {
 
       verifyPayment();
     }
-  }, [reference, session?.user.reference]);
+  }, [reference]);
   console.log("session", session);
   return (
     <div>
