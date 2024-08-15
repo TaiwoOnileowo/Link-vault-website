@@ -1,12 +1,14 @@
 "use client";
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-
+import { useSession } from "next-auth/react";
 const VerifyPayment = () => {
   const searchParams = useSearchParams();
   const reference = searchParams!.get("reference");
   const [text, setText] = useState("");
+  const { data: session } = useSession();
   console.log(reference);
+  const sessionReference = session?.user.reference;
   useEffect(() => {
     if (reference) {
       const verifyPayment = async () => {
@@ -17,15 +19,17 @@ const VerifyPayment = () => {
         if (data.status === "success") {
           console.log("Payment verified:", data);
           setText("Payment verified");
+          session?.user.reference = reference;
         } else {
           console.error("Payment verification failed:", data);
+          throw new Error("Payment verification failed");
         }
       };
 
       verifyPayment();
     }
-  }, [reference]);
-
+  }, [reference, session?.user.reference]);
+  console.log("session", session);
   return (
     <div>
       <h1>{text ? text : "Verifying Payment..."}</h1>

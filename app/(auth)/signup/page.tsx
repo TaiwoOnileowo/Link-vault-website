@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import { useSession } from "next-auth/react";
 import Success from "@/components/Success";
 import Left from "@/components/AuthPageLeft";
