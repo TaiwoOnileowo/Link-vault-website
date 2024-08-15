@@ -1,7 +1,9 @@
 // pages/api/session.ts
 import { NextApiRequest, NextApiResponse } from "next";
 import { runMiddleware, cors } from "@/app/middleware";
-import { auth } from "@/auth";
+
+// In-memory storage for session data
+let storedSession: any = null;
 
 export default async function handler(
   req: NextApiRequest,
@@ -17,17 +19,31 @@ export default async function handler(
   }
 
   try {
-    // const session = await auth(req, res);
-    // console.log("session", session);
-    const { session } = req.body;
-    console.log("session", session);  
-    if (!session) {
-      return res.status(401).json({ message: "Unauthorized" });
-    }
+    if (req.method === "POST") {
+      console.log("Request body:", req.body);
+      // Store the session from the request body
+      const { session } = req.body;
 
-    res.status(200).json({ session });
+      if (!session) {
+        return res.status(401).json({ message: "Unauthorized" });
+      }
+
+      storedSession = session; // Save the session data
+      console.log("Stored session:", storedSession);
+
+      return res.status(200).json({ message: "Session stored successfully" });
+    } else if (req.method === "GET") {
+      // Retrieve the stored session
+      if (!storedSession) {
+        return res.status(404).json({ message: "No session found" });
+      }
+
+      return res.status(200).json({ session: storedSession });
+    } else {
+      return res.status(405).json({ message: "Method not allowed" });
+    }
   } catch (error) {
-    console.error("Error retrieving session:", error);
+    console.error("Error handling session:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 }
