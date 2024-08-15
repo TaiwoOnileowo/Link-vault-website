@@ -15,11 +15,12 @@ export default async function handler(
   if (extensionId !== "bbgippochabbclmbgkkbbofljdfnbdop") {
     return res.status(403).json({ error: "Forbidden" });
   }
-  
-  try {
-    const session = await auth(req, res);
-    console.log("session", session);
 
+  try {
+    // const session = await auth(req, res);
+    // console.log("session", session);
+    const { session } = req.body;
+    console.log("session", session);  
     if (!session) {
       return res.status(401).json({ message: "Unauthorized" });
     }

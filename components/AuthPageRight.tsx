@@ -18,7 +18,7 @@ const AuthPageRight = () => {
   }, []);
 
   return (
-    <div className="w-[45%]">
+    <div className="w-[45%] h-screen">
       <AuroraBackground>
         {signinText.map((_, i) => {
           if (i !== index) return null;
@@ -32,7 +32,7 @@ const AuthPageRight = () => {
                 ease: "easeInOut",
               }}
               key={i}
-              className="relative flex flex-col gap-4 items-center justify-center px-4"
+              className="relative flex flex-col gap-4 h-screen items-center justify-center px-4"
             >
               <AnimatePresence>
                 <motion.div

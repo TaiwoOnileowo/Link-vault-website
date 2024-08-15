@@ -1,16 +1,17 @@
-// @ts-nocheck
+
 "use client";
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { useAppContext } from "@/context/AppContext";
+import { postSession } from "@/lib/postSession";
+
 const VerifyPayment = () => {
   const searchParams = useSearchParams();
   const reference = searchParams!.get("reference");
   const [text, setText] = useState("");
   const { data: session } = useSession();
   console.log(reference);
-const { referenceId, setReferenceId } = useAppContext();
+ 
 
   useEffect(() => {
     if (reference) {
@@ -22,8 +23,12 @@ const { referenceId, setReferenceId } = useAppContext();
         if (data.status === "success") {
           console.log("Payment verified:", data);
           setText("Payment verified");
-          setReferenceId(data.data.data.reference)
-          console.log(data.data.data.reference, "dax")
+          const newSession = {
+            ...session,
+            referenceId: data.data.data.reference,
+          };
+          postSession(newSession);
+          console.log(data.data.data.reference, "dax");
         } else {
           console.error("Payment verification failed:", data);
           throw new Error("Payment verification failed");
@@ -32,9 +37,9 @@ const { referenceId, setReferenceId } = useAppContext();
 
       verifyPayment();
     }
-  }, [reference, setReferenceId]);
+  }, [reference, session]);
   console.log("session", session);
-  console.log("referenceId", referenceId);
+  
   return (
     <div>
       <h1>{text ? text : "Verifying Payment..."}</h1>

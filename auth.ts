@@ -7,7 +7,7 @@ import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import Google from "next-auth/providers/google";
 import Resend from "next-auth/providers/resend";
 import clientPromise from "./lib/mongodb";
-
+import { useAppContext } from "./context/AppContext";
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: MongoDBAdapter(clientPromise),
   session: {
@@ -108,6 +108,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return token;
     },
     async session({ session, token }) {
+   
       session.user.id = token.id;
       return session;
     },
