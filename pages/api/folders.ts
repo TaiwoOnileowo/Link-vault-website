@@ -13,7 +13,7 @@ export default async function handler(
   }
 
   const extensionId = req.headers["x-extension-id"];
-  if (extensionId !== "bbgippochabbclmbgkkbbofljdfnbdop") {
+  if (extensionId !== "alglfcchpihiepimpbkjflbhniilbnca") {
     return res.status(403).json({ error: "Forbidden" });
   }
 

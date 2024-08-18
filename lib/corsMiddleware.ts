@@ -5,9 +5,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 const cors = Cors({
   origin: [
     "http://localhost:5173",
-    "chrome-extension://jchegagelggnljjchmgnogddehfcoecp",
-    "https://linkvaultapp.netlify.app",
-    "https://linkvaultapp.vercel.app/"
+    "chrome-extension://alglfcchpihiepimpbkjflbhniilbnca",
+    "https://www.linkvaultapp.com/",
   ],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "X-Extension-ID"],
