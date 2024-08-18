@@ -37,8 +37,8 @@ export default async function handler(
       if (!storedSession) {
         return res.status(404).json({ message: "No session found" });
       }
-
-      return res.status(200).json({ session: storedSession });
+      const data = storedSession;
+      return res.status(200).json(data);
     } else {
       return res.status(405).json({ message: "Method not allowed" });
     }
