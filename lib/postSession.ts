@@ -4,7 +4,7 @@ export const postSession = async (session: Session) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "x-extension-id": "bbgippochabbclmbgkkbbofljdfnbdop",
+      "x-extension-id": "alglfcchpihiepimpbkjflbhniilbnca",
     },
     body: JSON.stringify({ session }),
   })

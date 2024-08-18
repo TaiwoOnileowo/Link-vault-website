@@ -57,7 +57,7 @@ const EnterDetails = () => {
       body: JSON.stringify({
         email,
         amount: Number(price),
-        callback_url: `https://linkvaultapp.vercel.app/verify`,
+        callback_url: `https://www.linkvaultapp.com/verify`,
         plan: plan,
       }),
     });
