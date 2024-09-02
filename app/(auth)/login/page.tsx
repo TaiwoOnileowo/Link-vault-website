@@ -1,16 +1,23 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Right from "@/components/AuthPageRight";
 import Left from "@/components/AuthPageLeft";
 import Success from "@/components/Success";
 import { useSession } from "next-auth/react";
+import { postSession } from "@/lib/postSession";
 
 const Login = () => {
   const { status, data: session } = useSession();
-  console.log("session", session);
 
-  if (status === "loading") return null;
+  useEffect(() => {
+    if (status === "authenticated" && session) {
+      console.log("session", session);
+      postSession(session);
+    }
+  }, [status, session]);
+
+  if (status === "loading") return <p>Loading...</p>; 
 
   return (
     <div className="flex bg-black-100">

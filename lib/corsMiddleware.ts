@@ -28,14 +28,8 @@ export default function corsMiddleware(handler) {
   return async (req, res) => {
     if (req.method === "OPTIONS") {
       res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
-      res.setHeader(
-        "Access-Control-Allow-Methods",
-        "GET, POST, PUT, DELETE, OPTIONS"
-      );
-      res.setHeader(
-        "Access-Control-Allow-Headers",
-        "Content-Type, Authorization, X-Extension-ID"
-      );
+      res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+      res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Extension-ID");
       res.setHeader("Access-Control-Allow-Credentials", "true");
       res.status(204).end();
       return;

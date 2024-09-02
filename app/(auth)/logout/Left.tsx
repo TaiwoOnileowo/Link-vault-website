@@ -1,11 +1,17 @@
 import React from "react";
 import { BottomGradient } from "../signup/SignUpForm";
-import { logOut } from "@/lib/actions";
-
+import { signOut } from "next-auth/react";
+import axios from "axios";
 const Left = () => {
   const handleLogout = async () => {
-    await logOut();
-
+    await fetch("/api/session", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "x-extension-id": "alglfcchpihiepimpbkjflbhniilbnca",
+      },
+    });
+    await signOut();
     window.location.href = "/login";
   };
 

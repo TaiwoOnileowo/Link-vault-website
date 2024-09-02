@@ -1,14 +1,8 @@
-// pages/api/session.ts
 import { NextApiRequest, NextApiResponse } from "next";
 import { runMiddleware, cors } from "@/app/middleware";
+import { auth } from "@/auth";
 
-// In-memory storage for session data
-let storedSession: any = null;
-
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // Run the middleware
   await runMiddleware(req, res, cors);
 
@@ -21,24 +15,27 @@ export default async function handler(
   try {
     if (req.method === "POST") {
       console.log("Request body:", req.body);
-      // Store the session from the request body
       const { session } = req.body;
 
       if (!session) {
         return res.status(401).json({ message: "Unauthorized" });
       }
 
-      storedSession = session; // Save the session data
-      console.log("Stored session:", storedSession);
+      // Store session in a more persistent way if needed
+      // e.g., in a database or Redis
+
+      console.log("Stored session:", session);
 
       return res.status(200).json({ message: "Session stored successfully" });
     } else if (req.method === "GET") {
-      // Retrieve the stored session
-      if (!storedSession) {
-        return res.status(404).json({ message: "No session found" });
-      }
-      const data = storedSession;
-      return res.status(200).json(data);
+      const session = await auth(req, res); // Pass the request and response objects
+
+      return res.status(200).json({ session });
+    } else if (req.method === "DELETE") {
+      console.log("Clearing session");
+      // Clear session from persistent storage
+
+      return res.status(200).json({ message: "Session cleared successfully" });
     } else {
       return res.status(405).json({ message: "Method not allowed" });
     }

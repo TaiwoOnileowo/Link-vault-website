@@ -1,5 +1,5 @@
 import { Session } from "@/types";
-export const postSession = async (session: Session) => {
+export const postSession = async (session: Session | null) => {
   fetch("/api/session", {
     method: "POST",
     headers: {
