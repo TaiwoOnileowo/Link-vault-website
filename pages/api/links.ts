@@ -5,6 +5,12 @@ import mql from "@microlink/mql";
 import { LinkType } from "@/types";
 import corsMiddleware from "@/lib/corsMiddleware";
 import { getLinkMeta } from "@/lib/linkmeta";
+const now = new Date();
+const startOfDay = new Date(
+  now.getFullYear(),
+  now.getMonth(),
+  now.getDate()
+).getTime();
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   // await runMiddleware(req, res, cors);
@@ -130,12 +136,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       }
 
       let links: LinkType[] = user.links || [];
-      const now = new Date();
-      const startOfDay = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate()
-      ).getTime();
 
       // Filter links based on searchTerm
       if (searchTerm) {
@@ -182,6 +182,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           ...results[index],
           id: Math.floor(Math.random() * 1000000),
           createdAt: Date.now(),
+          createdToday: link.createdAt >= startOfDay,
         }));
 
         const updateResult = await usersCollection.updateOne(
@@ -207,45 +208,39 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           links: linksToInsert,
         });
       } else {
-        const { url } = data;
-        try {
-          const { data: metadata } = await mql(url, { meta: true });
+        const linksWithMeta = await getLinkMeta([data]);
+        const link = linksWithMeta[0];
 
-          const linkData: LinkType = {
-            ...data,
-            id: Math.floor(Math.random() * 1000000),
-            url,
-            image: metadata.image?.url || metadata.logo?.url || null,
-            title: metadata.title || null,
-            description: metadata.description || null,
-            createdAt: Date.now(),
-          };
+        const linkData: LinkType = {
+          ...data,
+          id: Math.floor(Math.random() * 1000000),
 
-          const updateResult = await usersCollection.updateOne(
-            { _id: objectId },
-            {
-              $push: {
-                links: {
-                  $each: [linkData],
-                  $position: 0,
-                },
+          ...link,
+          createdAt: Date.now(),
+          createdToday: link.createdAt >= startOfDay,
+        };
+
+        const updateResult = await usersCollection.updateOne(
+          { _id: objectId },
+          {
+            $push: {
+              links: {
+                $each: [linkData],
+                $position: 0,
               },
-            } as any
-          );
+            },
+          } as any
+        );
 
-          if (updateResult.modifiedCount === 0) {
-            return res
-              .status(404)
-              .json({ error: "User not found or no update made" });
-          }
-
+        if (updateResult.modifiedCount === 0) {
           return res
-            .status(200)
-            .json({ message: "Link added successfully", link: linkData });
-        } catch (error) {
-          console.error(`Error processing ${url}:`, error);
-          return res.status(500).json({ error: "Error fetching metadata" });
+            .status(404)
+            .json({ error: "User not found or no update made" });
         }
+
+        return res
+          .status(200)
+          .json({ message: "Link added successfully", link: linkData });
       }
     } else {
       return res.status(405).json({ error: "Method not allowed" });

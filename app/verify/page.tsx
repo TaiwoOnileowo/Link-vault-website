@@ -3,7 +3,7 @@
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { postSession } from "@/lib/postSession";
+// import { postSession } from "@/lib/postSession";
 
 const VerifyPayment = () => {
   const searchParams = useSearchParams();
@@ -27,7 +27,7 @@ const VerifyPayment = () => {
             ...session,
             referenceId: data.data.data.reference,
           };
-          postSession(newSession);
+          // postSession(newSession);
           console.log(data.data.data.reference, "dax");
         } else {
           console.error("Payment verification failed:", data);

@@ -6,7 +6,7 @@ const cors = Cors({
   origin: [
     "http://localhost:5173",
     "chrome-extension://alglfcchpihiepimpbkjflbhniilbnca",
-    "https://www.linkvaultapp.com/",
+    "https://www.linkvaultapp.com",
   ],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "X-Extension-ID"],

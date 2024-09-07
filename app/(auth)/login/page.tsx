@@ -5,17 +5,17 @@ import Right from "@/components/AuthPageRight";
 import Left from "@/components/AuthPageLeft";
 import Success from "@/components/Success";
 import { useSession } from "next-auth/react";
-import { postSession } from "@/lib/postSession";
+// import { postSession } from "@/lib/postSession";
 
 const Login = () => {
   const { status, data: session } = useSession();
 
-  useEffect(() => {
-    if (status === "authenticated" && session) {
-      console.log("session", session);
-      postSession(session);
-    }
-  }, [status, session]);
+  // useEffect(() => {
+  //   if (status === "authenticated" && session) {
+     
+  //     postSession(session);
+  //   }
+  // }, [status, session]);
 
   if (status === "loading") return <p>Loading...</p>; 
 
