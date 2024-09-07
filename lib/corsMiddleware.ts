@@ -29,23 +29,51 @@ function runMiddleware(req, res, fn) {
   });
 }
 
+// export default function corsMiddleware(handler) {
+//   return async (req, res) => {
+//     if (req.method === "OPTIONS") {
+//       res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
+//       console.log("req.headers.origin", req.headers.origin);
+//       res.setHeader(
+//         "Access-Control-Allow-Methods",
+//         "GET, POST, PUT, DELETE, OPTIONS"
+//       );
+//       res.setHeader(
+//         "Access-Control-Allow-Headers",
+//         "Content-Type, Authorization, X-Extension-ID"
+//       );
+//       res.setHeader("Access-Control-Allow-Credentials", "true");
+//       res.status(204).end();
+//       return;
+//     }
+//     await runMiddleware(req, res, cors);
+//     return handler(req, res);
+//   };
+// }
 export default function corsMiddleware(handler) {
   return async (req, res) => {
     if (req.method === "OPTIONS") {
-      res.setHeader("Access-Control-Allow-Origin", req.headers.origin);
-      console.log("req.headers.origin", req.headers.origin);
-      res.setHeader(
-        "Access-Control-Allow-Methods",
-        "GET, POST, PUT, DELETE, OPTIONS"
-      );
-      res.setHeader(
-        "Access-Control-Allow-Headers",
-        "Content-Type, Authorization, X-Extension-ID"
-      );
+      const allowedOrigins = [
+        "http://localhost:5173",
+        "chrome-extension://alglfcchpihiepimpbkjflbhniilbnca",
+        "https://www.linkvaultapp.com",
+      ];
+
+      const origin = req.headers.origin;
+
+      if (allowedOrigins.includes(origin)) {
+        res.setHeader("Access-Control-Allow-Origin", origin);
+      } else {
+        res.setHeader("Access-Control-Allow-Origin", "*");  // For testing purposes
+      }
+
+      res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+      res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Extension-ID");
       res.setHeader("Access-Control-Allow-Credentials", "true");
       res.status(204).end();
       return;
     }
+
     await runMiddleware(req, res, cors);
     return handler(req, res);
   };
